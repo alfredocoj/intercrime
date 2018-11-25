@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Cluster Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
+
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <!--<script src="https://npmcdn.com/bootstrap@4.0.0-alpha.5/dist/js/bootstrap.min.js"></script>-->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"
+            defer></script>
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse bg-inverse p-0">
+    <form class="form-inline mx-2">
+        <div class="btn-toolbar mr-auto" role="toolbar">
+            <div class="btn-group btn-group-sm mr-2" role="group">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal"><i
+                        class="fa fa-bars fa-fw"></i></button>
+            </div>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" style="border:1px solid #adadad;" placeholder="Endereço"
+                       aria-describedby="btnGroupAddon">
+                <button class="btn btn-secondary input-group-addon"><i class="fa fa-search fa-fw"></i></button>
+            </div>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#accountmenu"><span
+                        class="hidden-sm-down mr-2">Login</span><i class="fa fa-user"></i></a>
+                <div id="accountmenu" class="dropdown">
+                    <div class="dropdown-menu dropdown-menu-right p-0">
+                        <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#">Disabled</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-block">
+                                <h4 class="card-title">Bem vindo!</h4>
+                                <p class="card-text">Essa é a sua área de análise de crimes da Cidade de Chicago -
+                                    EUA.</p>
+                                <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </form>
+</nav>
+<!-- Broken Nav -->
+<!-- Modal Sidebar -->
+<div class="modal left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="SideMenu">
+                <div class="card">
+                    <div class="card-header btn btn-default mh1" data-toggle="collapse" data-target="#MenuLayers"
+                         data-parent="#SideMenu">
+                        <i class="fa fa-map fa-fw"></i>&nbsp;Filtro por anos
+                    </div>
+                    <div id="MenuLayers" class="collapse show">
+                        <div class="card-block list-group mg1">
+                            <button id="ano1" type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;2018
+                            </button>
+                            <button id="ano2" type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;2017
+                            </button>
+                            <button id="ano3" type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;2016
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="card">
+                    <div class="card-header btn btn-default mh1" data-toggle="collapse" data-target="#MenuCrimes"
+                         data-parent="#SideMenu">
+                        <i class="fa fa-map fa-fw"></i>&nbsp;Filtro por crimes
+                    </div>
+                    <div id="MenuCrimes" class="collapse show">
+                        <div class="card-block list-group mg1">
+                            <button id="crime1" type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;Homicídio
+                            </button>
+                            <button id="crime2" type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;Roubo
+                            </button>
+                            <button id="crime3" type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;Roubo de veículo
+                            </button>
+                            <button id="crime4" type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;Transgressão criminosa
+                            </button>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="card">
+                    <div class="card-header btn btn-default mh1" data-toggle="collapse" data-target="#MenuStuff"
+                         data-parent="#SideMenu">
+                        <i class="fa fa-bullseye fa-fw"></i>&nbsp;Relatórios
+                    </div>
+                    <div id="MenuStuff" class="collapse">
+                        <div class="card-block list-group mg1">
+                            <button type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;Quantitativos por ano
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action"><i
+                                    class="fa fa-question fa-fw"></i>&nbsp;Quantitativo por crimes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header btn btn-default mh1" data-toggle="collapse" data-target="#MenuTools"
+                         data-parent="#SideMenu">
+                        <i class="fa fa-wrench fa-fw"></i>&nbsp;Tools
+                    </div>
+                    <!--<div id="MenuTools" class="collapse">-->
+                    <!--<div class="card-block list-group mg1">-->
+                    <!--<button type="button" class="list-group-item list-group-item-action"><i class="fa fa-question fa-fw"></i>&nbsp;Item</button>-->
+                    <!--<button type="button" class="list-group-item list-group-item-action"><i class="fa fa-question fa-fw"></i>&nbsp;Item</button>-->
+                    <!--<button type="button" class="list-group-item list-group-item-action"><i class="fa fa-question fa-fw"></i>&nbsp;Item</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="card">
+                    <div class="card-header btn btn-default mh1" data-toggle="collapse" data-target="#MenuSettings"
+                         data-parent="#SideMenu">
+                        <i class="fa fa-cog fa-fw"></i>&nbsp;Settings
+                    </div>
+                    <!--<div id="MenuSettings" class="collapse">-->
+                    <!--<div class="card-block list-group mg1">-->
+                    <!--<button type="button" class="list-group-item list-group-item-action"><i class="fa fa-question fa-fw"></i>&nbsp;Item</button>-->
+                    <!--<button type="button" class="list-group-item list-group-item-action"><i class="fa fa-question fa-fw"></i>&nbsp;Item</button>-->
+                    <!--<button type="button" class="list-group-item list-group-item-action"><i class="fa fa-question fa-fw"></i>&nbsp;Item</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div id="map" style="border: 1px solid #AAA;"></div>
+
+
+<script type='text/javascript' src='maps/markers.js'></script>
+<script type='text/javascript' src='maps/app.js'></script>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  background-image: url("/splash.png");
+  background-color: #220052;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 536px;
+  margin: auto;
+  position: relative;
+}
+
+section:before {
+  content: "";
+  position: absolute;
+  background: url("/pyramid.png") no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 402px;
+  z-index: -1;
+}
+
+.logo {
+  background: url("/logo.svg") no-repeat;
+  width: 36px;
+  height: 33px;
+  background-size: 100%;
+  margin-bottom: 35px;
+  opacity: 0;
+  animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 1.3s forwards;
+}
+
+.title {
+  background: url("/title.svg") no-repeat;
+  width: 219px;
+  height: 36px;
+  background-size: 100%;
+  opacity: 0;
+  animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 0.2s forwards;
+}
+
+.subtitle {
+  margin-top: 25px;
+  color: #BDB3CB;
+  font-size: 17px;
+  text-align: center;
+  letter-spacing: 0.5;
+  opacity: 0;
+  animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 0.5s forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2%;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* OUTRAS CONFIGURACOES. */
+
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#coords {
+  background-color: black;
+  color: white;
+  padding: 5px;
+}
+
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css);
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  z-index: 9999;
+}
+
+#map {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  bottom:1.5em;
+  z-index: 200;
+  width: 100%;
+  background: green;
+}
+
+#coords {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height:1.5em;
+  border-top: 2px solid #444;
+  background-color: #d8d8d8;
+}
+
+.collapse.width {
+  -webkit-transition: width 0.25s ease;
+  -moz-transition: width 0.25s ease;
+  -o-transition: width 0.25s ease;
+  transition: width 0.25s ease;
+}
+
+.btn-group-vertical > .btn {
+  text-align:left;
+}
+
+.mh1 {
+  padding:.5rem .25rem;
+  text-align: left;
+}
+
+.mg1 {
+  padding:0;
+}
+
+.mg1 > button {
+  padding: .25rem .5rem;
+  font-size: .8rem;
+}
+
+.modal.left .modal-dialog {
+  position: absolute;
+  top: 40px;
+  bottom: 1.5em;
+  margin: 0;
+  width: 200px;
+  -webkit-transform: translate3d(0%, 0, 0);
+  -ms-transform: translate3d(0%, 0, 0);
+  -o-transform: translate3d(0%, 0, 0);
+  transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.modal.left .modal-body {
+  padding: 0px;
+}
+
+.modal.left.fade .modal-dialog{
+  left: -200px;
+  -webkit-transition: opacity 0.3s linear, left 300ms ease-out;
+  -moz-transition: opacity 0.3s linear, left 300ms ease-out;
+  -o-transition: opacity 0.3s linear, left 300ms ease-out;
+  transition: opacity 0.3s linear, left 300ms ease-out;
+}
+
+.modal.left.fade.show .modal-dialog{
+  left: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+	.modal-content {
+		border-radius: 0;
+		border: none;
+	}
+
+	.modal-header {
+		border-bottom-color: #EEEEEE;
+		background-color: #FAFAFA;
+	}
