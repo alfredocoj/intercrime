@@ -1,0 +1,207 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+              integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="style_barras.css">
+
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+                integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"
+                defer></script>
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+
+    <script type="text/javascript">
+
+      var data_mes = [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro"];
+
+
+      var mesInicialSelecionado = 1;
+      var mesFinalSelecionado = 1;
+      var mesInicial = 1;
+      var mesFinal = 1;
+
+      $(document).ready(function() {
+
+        var intervaloMeses = new Array();
+
+        $('#selectMesInicial').on('change', function () {
+
+          //mesInicial = $(this).find(':selected').attr('data-id');
+          mesInicial = this.value;
+
+          var selectbox = $('#selectMesFinal');
+          $.each(data_mes, function (i, d) {
+            if(mesInicial <= i+1)
+              $('<option>').val(i+1).text(d).appendTo(selectbox);
+          });
+
+        });
+
+
+        $('#selectMesFinal').on('change', function () {
+          mesFinal = this.value;
+        });
+
+        $('#submit').on('click', function(event) {
+
+          for (var i = parseInt(mesInicial); i <= mesFinal; i++) {
+            intervaloMeses[i]=i;
+          }
+
+          filtros["matchers"]["month.in"] = intervaloMeses;
+          initialChart(intervaloMeses);
+        });
+
+      });
+
+      initialChart();
+
+      function initialChart(intervaloMeses){
+        google.charts.load('current', {'packages':['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        url = 'http://cidadesinteligentes.lsdi.ufma.br/collector/resources/data/';
+
+        filtros = {"capabilities": ["incidencia_crime"], "matchers": {}};
+
+        if(intervaloMeses){
+          filtros["matchers"]["month.in"] = intervaloMeses;
+        }
+
+        years = [2016, 2017, 2018];
+
+        filtros["matchers"]["crime_type.eq"] = 'HOMICIDE';
+
+              var qtdHomicides = [100, 125, 150];
+
+              /*$.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = year;
+                $.post(url, filtros, function (data, textStatus) {
+                          $.each(data.resources, function (j, recurso) {
+                            qtdHomicides[i] = recurso.capabilities.incidencia_crime.length;
+                            console.log(qtdHomicides[i]);
+                          });
+
+                      });
+              });*/
+
+
+
+              filtros["matchers"]["crime_type.eq"] = 'THEFT';
+              var qtdThefts = [200, 225, 276];
+
+              /*$.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = year;
+                $.post(url, filtros, function (data, textStatus) {
+                          $.each(data.resources, function (j, recurso) {
+                            qtdThefts[i] = recurso.capabilities.incidencia_crime.length;
+                            console.log(qtdThefts[i]);
+                          });
+
+                      });
+              });*/
+
+              filtros["matchers"]["crime_type.eq"] = 'MOTOR VEHICLE THEFT';
+              var qtdVehicleThefts = [80, 87, 100];
+
+              /*$.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = year;
+                $.post(url, filtros, function (data, textStatus) {
+                          $.each(data.resources, function (j, recurso) {
+                            qtdVehicleThefts[i] = recurso.capabilities.incidencia_crime.length;
+                            console.log(qtdVehicleThefts[i]);
+                          });
+
+                      });
+              });*/
+
+              filtros["matchers"]["crime_type.eq"] = 'CRIMINAL TRESPASS';
+
+              var qtdCriminalTrespass = [50, 60, 90];
+
+              /*$.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = year;
+                $.post(url, filtros, function (data, textStatus) {
+                          $.each(data.resources, function (j, recurso) {
+                            qtdCriminalTrespass[i] = recurso.capabilities.incidencia_crime.length;
+                            console.log(qtdCriminalTrespass[i]);
+                          });
+
+                      });
+              });*/
+
+
+              function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Ano', 'HOMICIDE', 'THEFT', 'MOTOR VEHICLE THEFT', 'CRIMINAL TRESPASS'],
+                  ['2016', qtdHomicides[0], qtdThefts[0], qtdVehicleThefts[0], qtdCriminalTrespass[0]],
+                  ['2017', qtdHomicides[1], qtdThefts[1], qtdVehicleThefts[1], qtdCriminalTrespass[1]],
+                  ['2018', qtdHomicides[2], qtdThefts[2], qtdVehicleThefts[2], qtdCriminalTrespass[2]]
+                ]);
+
+                var options = {
+                  chart: {
+                    title: 'Quantitativo de crimes cidade de Chicago',
+                    subtitle: 'Para os anos: 2016-2018',
+                  },
+                  bars: 'horizontal' // Required for Material Bar Charts.
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+                chart.draw(data, google.charts.Bar.convertOptions(options));
+              }
+
+              console.log(filtros);
+      }
+
+    </script>
+  </head>
+  <body>
+      <form class="form-inline">
+        <div class="col-auto my-1">
+          <label class="mr-sm-2" for="selectMesInicial">Mês inicial</label>
+          <select class="mr-sm-2" id="selectMesInicial">
+            <option>Escolha...</option>
+            <option data-id value="1">Janeiro</option>
+            <option data-id value="2">Fevereiro</option>
+            <option data-id value="3">Março</option>
+            <option data-id value="4">Abril</option>
+            <option data-id value="5">Maio</option>
+            <option data-id value="6">Junho</option>
+            <option data-id value="7">Julho</option>
+            <option data-id value="8">Agosto</option>
+            <option data-id value="9">Setembro</option>
+            <option data-id value="10">Outubro</option>
+            <option data-id value="11">Novembro</option>
+            <option data-id value="12">Dezembro</option>
+          </select>
+        </div>
+        <div class="col-auto my-1">
+          <label class="mr-sm-2" for="selectMesFinal">Mês final</label>
+          <select class="mr-sm-2" id="selectMesFinal">
+            <option selected>Escolha...</option>
+          </select>
+        </div>
+        <div class="col-auto my-1">
+          <button id="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
