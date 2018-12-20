@@ -87,63 +87,145 @@
 
         filtros["matchers"]["crime_type.eq"] = 'HOMICIDE';
 
-              var qtdHomicides = [100, 125, 150];
+              var qtdHomicides = [];//[100, 125, 150];
 
-              /*$.each(years, function (i, year) {
-                filtros["matchers"]["year.in"] = year;
+
+              $.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = [years[i]];
+                localStorage.setItem("count", 0);
+
                 $.post(url, filtros, function (data, textStatus) {
-                          $.each(data.resources, function (j, recurso) {
-                            qtdHomicides[i] = recurso.capabilities.incidencia_crime.length;
-                            console.log(qtdHomicides[i]);
-                          });
+                  var count = 0;
+                  $.each(data.resources, function (j, resource) {
+                    count = count + resource.capabilities.incidencia_crime.length;
+                    localStorage.setItem("count", count);
+                  });
 
-                      });
-              });*/
+                  if(i===0)
+                    localStorage.setItem("qtdHomicides1", localStorage.getItem("count"));
+
+                  else if(i===1)
+                    localStorage.setItem("qtdHomicides2", localStorage.getItem("count"));
+
+                  else if(i===2)
+                    localStorage.setItem("qtdHomicides3", localStorage.getItem("count"));
+
+                  else localStorage.setItem("count", 0);
+                });
 
 
+              });
 
+              qtdHomicides[0] = localStorage.getItem("qtdHomicides1");
+              qtdHomicides[1] = localStorage.getItem("qtdHomicides2");
+              qtdHomicides[2] = localStorage.getItem("qtdHomicides3");
+
+              //localStorage.clear();
+
+              /// qtdThefts
               filtros["matchers"]["crime_type.eq"] = 'THEFT';
-              var qtdThefts = [200, 225, 276];
+              var qtdThefts = [];//[200, 225, 276];
 
-              /*$.each(years, function (i, year) {
-                filtros["matchers"]["year.in"] = year;
+              $.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = [years[i]];
+                localStorage.setItem("count", 0);
+
                 $.post(url, filtros, function (data, textStatus) {
-                          $.each(data.resources, function (j, recurso) {
-                            qtdThefts[i] = recurso.capabilities.incidencia_crime.length;
-                            console.log(qtdThefts[i]);
-                          });
+                  var count = 0;
+                  $.each(data.resources, function (j, resource) {
+                    count = count + resource.capabilities.incidencia_crime.length;
+                    localStorage.setItem("count", count);
+                  });
 
-                      });
-              });*/
+                  if(i===0)
+                    localStorage.setItem("qtd1", localStorage.getItem("count"));
+
+                  else if(i===1)
+                    localStorage.setItem("qtd2", localStorage.getItem("count"));
+
+                  else if(i===2)
+                    localStorage.setItem("qtd3", localStorage.getItem("count"));
+
+                  else localStorage.setItem("count", 0);
+                });
+
+              });
+
+              qtdThefts[0] = localStorage.getItem("qtd1");
+              qtdThefts[1] = localStorage.getItem("qtd2");
+              qtdThefts[2] = localStorage.getItem("qtd3");
+              console.log(qtdThefts);
+              //localStorage.clear();
 
               filtros["matchers"]["crime_type.eq"] = 'MOTOR VEHICLE THEFT';
-              var qtdVehicleThefts = [80, 87, 100];
+              var qtdVehicleThefts = [];//[80, 87, 100];
 
-              /*$.each(years, function (i, year) {
-                filtros["matchers"]["year.in"] = year;
+
+              $.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = [years[i]];
+                localStorage.setItem("count", 0);
+
                 $.post(url, filtros, function (data, textStatus) {
-                          $.each(data.resources, function (j, recurso) {
-                            qtdVehicleThefts[i] = recurso.capabilities.incidencia_crime.length;
-                            console.log(qtdVehicleThefts[i]);
-                          });
+                  var count = 0;
+                  $.each(data.resources, function (j, resource) {
+                    count = count + resource.capabilities.incidencia_crime.length;
+                    localStorage.setItem("count", count);
+                  });
 
-                      });
-              });*/
+                  if(i===0)
+                    localStorage.setItem("qtdVehicleThefts1", localStorage.getItem("count"));
+
+                  else if(i===1)
+                    localStorage.setItem("qtdVehicleThefts2", localStorage.getItem("count"));
+
+                  else if(i===2)
+                    localStorage.setItem("qtdVehicleThefts3", localStorage.getItem("count"));
+
+                  else localStorage.setItem("count", 0);
+                });
+
+              });
+
+              qtdVehicleThefts[0] = localStorage.getItem("qtdVehicleThefts1");
+              qtdVehicleThefts[1] = localStorage.getItem("qtdVehicleThefts2");
+              qtdVehicleThefts[2] = localStorage.getItem("qtdVehicleThefts3");
+
+              //localStorage.clear();
 
               filtros["matchers"]["crime_type.eq"] = 'CRIMINAL TRESPASS';
 
-              var qtdCriminalTrespass = [50, 60, 90];
+              var qtdCriminalTrespass = [];//[50, 60, 90];
 
-              /*$.each(years, function (i, year) {
-                filtros["matchers"]["year.in"] = year;
+              $.each(years, function (i, year) {
+                filtros["matchers"]["year.in"] = [years[i]];
+                localStorage.setItem("count", 0);
+
                 $.post(url, filtros, function (data, textStatus) {
-                          $.each(data.resources, function (j, recurso) {
-                            qtdCriminalTrespass[i] = recurso.capabilities.incidencia_crime.length;
-                            console.log(qtdCriminalTrespass[i]);
-                          });
+                  var count = 0;
+                  $.each(data.resources, function (j, resource) {
+                    count = count + resource.capabilities.incidencia_crime.length;
+                    localStorage.setItem("count", count);
+                  });
 
-                      });
-              });*/
+                  if(i===0)
+                    localStorage.setItem("qtdCriminalTrespass1", localStorage.getItem("count"));
+
+                  else if(i===1)
+                    localStorage.setItem("qtdCriminalTrespass2", localStorage.getItem("count"));
+
+                  else if(i===2)
+                    localStorage.setItem("qtdCriminalTrespass3", localStorage.getItem("count"));
+
+                  else localStorage.setItem("count", 0);
+                });
+
+              });
+
+              qtdCriminalTrespass[0] = localStorage.getItem("qtdCriminalTrespass1");
+              qtdCriminalTrespass[1] = localStorage.getItem("qtdCriminalTrespass2");
+              qtdCriminalTrespass[2] = localStorage.getItem("qtdCriminalTrespass3");
+
+              //localStorage.clear();
 
 
               function drawChart() {
