@@ -119,9 +119,9 @@
 
               });
 
-              qtdHomicides[0] = localStorage.getItem("qtdHomicides1");
-              qtdHomicides[1] = localStorage.getItem("qtdHomicides2");
-              qtdHomicides[2] = localStorage.getItem("qtdHomicides3");
+              qtdHomicides[0] = parseInt(localStorage.getItem("qtdHomicides1"));
+              qtdHomicides[1] = parseInt(localStorage.getItem("qtdHomicides2"));
+              qtdHomicides[2] = parseInt(localStorage.getItem("qtdHomicides3"));
 
               //localStorage.clear();
 
@@ -154,9 +154,9 @@
 
               });
 
-              qtdThefts[0] = localStorage.getItem("qtd1");
-              qtdThefts[1] = localStorage.getItem("qtd2");
-              qtdThefts[2] = localStorage.getItem("qtd3");
+              qtdThefts[0] = parseInt(localStorage.getItem("qtd1"));
+              qtdThefts[1] = parseInt(localStorage.getItem("qtd2"));
+              qtdThefts[2] = parseInt(localStorage.getItem("qtd3"));
               //localStorage.clear();
 
               filtros["matchers"]["crime_type.eq"] = 'MOTOR VEHICLE THEFT';
@@ -188,9 +188,9 @@
 
               });
 
-              qtdVehicleThefts[0] = localStorage.getItem("qtdVehicleThefts1");
-              qtdVehicleThefts[1] = localStorage.getItem("qtdVehicleThefts2");
-              qtdVehicleThefts[2] = localStorage.getItem("qtdVehicleThefts3");
+              qtdVehicleThefts[0] = parseInt(localStorage.getItem("qtdVehicleThefts1"));
+              qtdVehicleThefts[1] = parseInt(localStorage.getItem("qtdVehicleThefts2"));
+              qtdVehicleThefts[2] = parseInt(localStorage.getItem("qtdVehicleThefts3"));
 
               //localStorage.clear();
 
@@ -223,9 +223,9 @@
 
               });
 
-              qtdCriminalTrespass[0] = localStorage.getItem("qtdCriminalTrespass1");
-              qtdCriminalTrespass[1] = localStorage.getItem("qtdCriminalTrespass2");
-              qtdCriminalTrespass[2] = localStorage.getItem("qtdCriminalTrespass3");
+              qtdCriminalTrespass[0] = parseInt(localStorage.getItem("qtdCriminalTrespass1"));
+              qtdCriminalTrespass[1] = parseInt(localStorage.getItem("qtdCriminalTrespass2"));
+              qtdCriminalTrespass[2] = parseInt(localStorage.getItem("qtdCriminalTrespass3"));
 
               //localStorage.clear();
 
@@ -243,7 +243,9 @@
                     title: 'Quantitativo de crimes cidade de Chicago',
                     subtitle: 'Para os anos: 2016-2018',
                   },
-                  bars: 'horizontal' // Required for Material Bar Charts.
+                  bars: 'horizontal', // Required for Material Bar Charts.
+                  wAxis: {format: 'decimal'},
+                  height: 400,
                 };
 
                 var chart = new google.charts.Bar(document.getElementById('barchart_material'));
