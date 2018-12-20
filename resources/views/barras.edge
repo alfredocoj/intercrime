@@ -35,6 +35,8 @@
       var mesInicial = 1;
       var mesFinal = 1;
 
+      var intervaloMeses = new Array();
+
       $(document).ready(function() {
 
         var intervaloMeses = new Array();
@@ -42,9 +44,10 @@
         $('#selectMesInicial').on('change', function () {
 
           //mesInicial = $(this).find(':selected').attr('data-id');
-          mesInicial = this.value;
+          mesInicial = parseInt(this.value);
 
           var selectbox = $('#selectMesFinal');
+          selectbox.html('<option value="">Selecione</option>');
           $.each(data_mes, function (i, d) {
             if(mesInicial <= i+1)
               $('<option>').val(i+1).text(d).appendTo(selectbox);
@@ -54,22 +57,21 @@
 
 
         $('#selectMesFinal').on('change', function () {
-          mesFinal = this.value;
+          mesFinal = parseInt(this.value);
         });
 
         $('#submit').on('click', function(event) {
 
-          for (var i = parseInt(mesInicial); i <= mesFinal; i++) {
+          for (var i = mesInicial; i <= mesFinal; i++) {
             intervaloMeses[i]=i;
           }
 
-          filtros["matchers"]["month.in"] = intervaloMeses;
           initialChart(intervaloMeses);
         });
 
       });
 
-      initialChart();
+      initialChart(intervaloMeses);
 
       function initialChart(intervaloMeses){
         google.charts.load('current', {'packages':['bar']});
@@ -79,7 +81,8 @@
 
         filtros = {"capabilities": ["incidencia_crime"], "matchers": {}};
 
-        if(intervaloMeses){
+        console.log(intervaloMeses);
+        if(intervaloMeses || intervaloMeses !== undefined){
           filtros["matchers"]["month.in"] = intervaloMeses;
         }
 
@@ -154,7 +157,6 @@
               qtdThefts[0] = localStorage.getItem("qtd1");
               qtdThefts[1] = localStorage.getItem("qtd2");
               qtdThefts[2] = localStorage.getItem("qtd3");
-              console.log(qtdThefts);
               //localStorage.clear();
 
               filtros["matchers"]["crime_type.eq"] = 'MOTOR VEHICLE THEFT';
@@ -255,10 +257,11 @@
     </script>
   </head>
   <body>
-      <form class="form-inline">
-        <div class="col-auto my-1">
+      <div class="container" >
+
+
           <label class="mr-sm-2" for="selectMesInicial">Mês inicial</label>
-          <select class="mr-sm-2" id="selectMesInicial">
+          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selectMesInicial">
             <option>Escolha...</option>
             <option data-id value="1">Janeiro</option>
             <option data-id value="2">Fevereiro</option>
@@ -273,17 +276,15 @@
             <option data-id value="11">Novembro</option>
             <option data-id value="12">Dezembro</option>
           </select>
-        </div>
-        <div class="col-auto my-1">
+
           <label class="mr-sm-2" for="selectMesFinal">Mês final</label>
-          <select class="mr-sm-2" id="selectMesFinal">
+          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="selectMesFinal">
             <option selected>Escolha...</option>
           </select>
-        </div>
-        <div class="col-auto my-1">
-          <button id="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </form>
-    <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+
+
+      <button id="submit" class="btn btn-primary">Submit</button>
+      </div>
+    <div class="container" id="barchart_material" style="width: auto; height: 500px;"></div>
   </body>
 </html>
