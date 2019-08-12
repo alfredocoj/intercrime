@@ -1,8 +1,8 @@
 # Adonis fullstack application
 
-Aplicação para cidades inteligentes que usa dados de incidência criminal da cidade de Chicago no EUA. A aplicação se comunica com a Plataforma Interscity para carregar os dados.
+Smart cities application that uses crime data from the city of Chicago in the USA. The application communicates with the Interscity Platform to load data.
 
-Esta é uma aplicação Adonis fullstack.
+This is a fullstack Adonis application.
 
 1. Bodyparser
 2. Session
@@ -29,15 +29,15 @@ npm install
 
 ### Migrations
 
-Execute o seguinte comando para iniciar os migrations.
+Run the following command to start migrations.
 
 ```js
 adonis migration:run
 ```
 
-### Iniciar a aplicação:
+### Launch the app:
 
-Execute o seguinte comando para iniciar a aplicação.
+Run the following command to start the application.
 ```js
 adonis serve --dev
 ```
